@@ -1,0 +1,54 @@
+#pragma once
+#ifndef RAM_H
+#define RAM_H          //헤더파일
+
+
+class Ram {
+	char mem[100 * 1024];
+	int size;
+public:
+	Ram();
+	~Ram();
+	char read(int address);
+	void write(int address, char value);
+};
+#endif
+
+////////////////////
+
+#include <iostream>
+#include "Ram.h"
+using namespace std;
+
+Ram::Ram() {
+	for (int i = 0; i < size; i++)            //mem배열을 0으로 초기화
+		mem[i] = 0;
+	size = 100 * 1024;                        //size를 100*1024로 초기화
+}
+Ram::~Ram() {                              //Ram 소멸자 함수
+	cout << "메모리 제거됨" << endl;  
+}
+char Ram::read(int address) {              //Ram 생성자 함수
+	return mem[address];                     // address 주소의 메모리 바이트 리턴
+}
+void Ram::write(int address, char value) {
+	mem[address] = value;                    // address 주소에 value 저장
+}
+
+/*
+배열을 0으로 초기화 하려고 mem = {0,}으로 하였는데 이는 첫 요소만 초기화하는 방법이여서 검색해보니 좀 더 확실한 방법인 for문을 이용해 mem[i]를 0으로 하였다.
+size는 100*1024로 초기화 하였고, 클래스에서 소멸자를 선언하였기에 소멸자 함수를 만들었다. read멤버함수와 write멤버함수를 구현하기 위해 문제 설명대로 위와 같이 하였다.
+*/
+
+#include <iostream>
+#include "Ram.h"
+using namespace std;
+
+int main() {
+	Ram ram;
+	ram.write(100, 20);
+	ram.write(101, 30);
+	char res = ram.read(100) + ram.read(101);
+	ram.write(102, res);
+	cout << "102 번지의 값 = " << (int)ram.read(102) << endl;
+}
