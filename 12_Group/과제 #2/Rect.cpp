@@ -4,5 +4,5 @@
 using namespace std;
 
 void Rect::draw() {
-	cout << "Rect" << endl;
+	cout << "Rectangle" << endl;
 }
